@@ -13,13 +13,15 @@ corr <- function(directory, threshold = 0) {
   files <- list.files(directory, full.names=TRUE)
   data <- do.call('rbind', lapply(files, read.csv, header=TRUE))
   data$count <- 1
+  data$isComplete <- complete.cases(data)
   
   
   # filter out data where both pollutants completely observed
-  filtered <- data[!is.na(data$sulfate) 
-                   & !is.na(data$nitrate)
-                   & !is.na(data$Date)
-                   & !is.na(data$ID),]
+  filtered <- data[data$isComplete==TRUE,]
+#  filtered <<- data[!is.na(data$sulfate) 
+#                   & !is.na(data$nitrate)
+#                   & !is.na(data$Date)
+#                   & !is.na(data$ID),]
   
   # find out what IDs have cases >= threshold
   agg <- aggregate(x=filtered$count, by=list(id=filtered$ID), FUN="sum")
@@ -37,18 +39,19 @@ corr <- function(directory, threshold = 0) {
 }
 
 
-cr <- corr("data/specdata", 150)
-head(cr)
-summary(cr)
 
-cr <- corr("data/specdata", 400)
-head(cr)
-summary(cr)
+#cr <- corr("specdata", 150)
+#head(cr)
+#summary(cr)
 
-cr <- corr("data/specdata", 5000)
-summary(cr)
-length(cr)
+#cr <- corr("specdata", 400)
+#head(cr)
+#summary(cr)
 
-cr <- corr("data/specdata")
-summary(cr)
-length(cr)
+#cr <- corr("specdata", 5000)
+#summary(cr)
+#length(cr)
+
+#cr <- corr("specdata")
+#summary(cr)
+#length(cr)
