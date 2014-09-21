@@ -52,9 +52,9 @@ best <- function(state = character(), outcome = character()) {
 }
 
 
-best('TX', 'heart attack')
-best("TX", "heart failure")
-best("MD", "heart attack")
-best("MD", "pneumonia")
-best("BB", "heart attack")
-best("NY", "hert attack")
+#best('TX', 'heart attack')
+#best("TX", "heart failure")
+#best("MD", "heart attack")
+#best("MD", "pneumonia")
+#best("BB", "heart attack")
+#best("NY", "hert attack")
